@@ -30,6 +30,7 @@ sys.path.insert(0, _REPO_ROOT)
 from mochi import (
     Mochi, MochiConfig, default_params, build_datasets,
     train, evaluate, save_embeddings, seed_everything,
+    load_pretrained,
 )
 
 
@@ -55,7 +56,10 @@ def _build_parser() -> argparse.ArgumentParser:
 
     # Script-only options
     p.add_argument("--eval_only", action="store_true", help="Skip training")
-    p.add_argument("--load_model", default=None, help="Checkpoint path to load")
+    p.add_argument("--load_model", default=None,
+                   help="Local checkpoint path to load")
+    p.add_argument("--load_pretrained", action="store_true",
+                   help="Download pretrained weights from Hugging Face (jrm28/mochi)")
     p.add_argument("--no_save_embeddings", action="store_true",
                    help="Skip saving encoder embeddings at the end")
     return p
@@ -84,6 +88,10 @@ def main():
     if args.load_model:
         model.load_state_dict(torch.load(args.load_model, map_location=device))
         print(f"Loaded checkpoint: {args.load_model}")
+    elif args.load_pretrained:
+        load_pretrained(model, variant=cfg.model_variant, seed=cfg.seed,
+                        map_location=str(device))
+        print(f"Loaded pretrained {cfg.model_variant} seed={cfg.seed} from Hugging Face")
 
     if not args.eval_only:
         print(f"\nStarting episodic meta-training ({cfg.train_steps} steps)...")

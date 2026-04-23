@@ -6,3 +6,4 @@ tqdm
 torch-geometric>=2.3
 torch-scatter
 ogb
+huggingface_hub>=0.20

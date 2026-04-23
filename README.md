@@ -36,6 +36,19 @@ model = Mochi(**default_params)            # Mochi++ — paper default
 model = Mochi(model_variant="mochi")       # Mochi    — ablation variant
 ```
 
+Load pretrained weights from Hugging Face ([`jrm28/mochi`](https://huggingface.co/jrm28/mochi)):
+
+```python
+from mochi import Mochi, default_params, load_pretrained
+
+model = Mochi(**default_params)
+load_pretrained(model, seed=2)             # downloads + loads weights in place
+```
+
+Three seeds are available (`seed=0`, `1`, `2`) — all trained on the paper's
+default setup (`latdim=512`, `gnn_layer=3`, `ridge_lambda=10`, 12 991 steps
+across 15 LP + 4 NC + 3 GC datasets).
+
 Full end-to-end training:
 
 ```python
@@ -59,11 +72,14 @@ python train.py
 python train.py --model_variant mochi --seed 1 --gpu 0
 python train.py --dataset_setting smoke --nc_datasets cora --train_steps 100
 
-# Evaluate a checkpoint on held-out datasets
+# Evaluate a local checkpoint on held-out datasets
 python train.py --eval_only --load_model checkpoints/mochi++_s2.pt \
     --dataset_setting link2 \
     --nc_datasets cora cs photo arxiv Fitness \
     --gc_datasets MUTAG PROTEINS DD ENZYMES NCI1 IMDB-BINARY COLLAB REDDIT-MULTI-5K
+
+# Evaluate using pretrained weights from Hugging Face (no training)
+python train.py --eval_only --load_pretrained --seed 2
 
 # Multi-GPU DDP
 torchrun --nproc_per_node=4 train_ddp.py --gpus 0,1,2,3
@@ -102,7 +118,8 @@ mochi/
 ├── data.py          # NC / LP / GC dataset loaders
 ├── samplers.py      # Episode samplers
 ├── training.py      # train / evaluate / save_embeddings
-└── entrypoint.py    # build_datasets (convenience wrapper)
+├── entrypoint.py    # build_datasets (convenience wrapper)
+└── pretrained.py    # load_pretrained — fetch weights from Hugging Face
 train.py             # Single-GPU CLI
 train_ddp.py         # Multi-GPU CLI (torchrun)
 ```

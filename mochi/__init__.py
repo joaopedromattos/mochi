@@ -37,6 +37,9 @@ from .training import (
     evaluate, save_embeddings, seed_everything,
 )
 from .entrypoint import build_datasets
+from .pretrained import (
+    load_pretrained, download_checkpoint, checkpoint_filename, HF_REPO_ID,
+)
 
 __all__ = [
     # Config
@@ -54,4 +57,6 @@ __all__ = [
     "train", "train_mochi", "train_mochi_plus",
     "evaluate", "save_embeddings", "seed_everything",
     "build_datasets",
+    # Pretrained weights
+    "load_pretrained", "download_checkpoint", "checkpoint_filename", "HF_REPO_ID",
 ]
