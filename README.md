@@ -1,39 +1,10 @@
 # Mochi / Mochi++
 
 <div align="center">
-<img src="https://i.imgur.com/bSnHsvm.png" alt="Mochi Model Diagram" />
+  <img src="https://i.imgur.com/bSnHsvm.png" alt="Mochi Model Diagram" width="400" />
 </div>
 
 Reference implementation for **Mochi** and **Mochi++**, a meta-learned
-few-shot graph foundation model that unifies node classification, link
-prediction, and graph classification under a single differentiable-ridge
-readout.
-
-Both variants share the same encoder: multi-hop SVD projectors feed a GAMLP
-network whose output is fed to a closed-form ridge classifier (R2-D2 style).
-The difference:
-
-|            | Output MLP       | Training batching                          |
-|------------|------------------|--------------------------------------------|
-| Mochi      | 2-layer          | One episode sampled from task mix per step |
-| **Mochi++**| 3-layer + skip   | 1 LP + 1 NC + 1 GC episode per step        |
-
-## Install
-
-```bash
-pip install -r requirements.txt
-```
-
-The codebase depends on PyTorch, PyG, `torch-scatter`, and OGB. Use the
-PyG install instructions for your CUDA version.
-
-## Quickstart (library interface)
-
-```python
-from mochi import Mochi, default_params
-
-
-Reference implementation for **Mochi** and **Mochi++** — a meta-learned
 few-shot graph foundation model that unifies node classification, link
 prediction, and graph classification under a single differentiable-ridge
 readout.
