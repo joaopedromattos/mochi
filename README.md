@@ -1,7 +1,7 @@
 # Mochi / Mochi++
 
 <div align="center">
-  <img src="https://i.imgur.com/OfC0UXJ.png" alt="Mochi Model Diagram" width="400" />
+  <img src="https://i.imgur.com/OfC0UXJ.png" alt="Mochi Model Diagram" />
 </div>
 
 Reference implementation for **Mochi** and **Mochi++**, a meta-learned
