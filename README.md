@@ -1,4 +1,4 @@
-# Mochi / Mochi++
+# Mochi: Aligning Pre-training and Inference for Efficient Graph Foundation Models via Meta-Learning}
 
 <div align="center">
   <img src="https://i.imgur.com/OfC0UXJ.png" alt="Mochi Model Diagram" />
